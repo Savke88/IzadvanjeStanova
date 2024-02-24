@@ -1,0 +1,21 @@
+.utisak-korisnika{
+    text-align: center; 
+  
+    .raspored {
+      display: flex;
+      justify-content: space-between; 
+      margin: 0 5%; 
+      width: 90%;
+  
+      div {
+        width: 30%; 
+        text-align: center; 
+        
+        img{
+            max-width: 80%;
+            max-height: auto;
+        }
+      }
+
+    }
+  }

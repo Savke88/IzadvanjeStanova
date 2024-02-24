@@ -1,0 +1,83 @@
+// izdaj.scss
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: auto;
+  font-family: 'Arial', sans-serif;
+
+  .lazni-image-input {
+    margin-bottom: 10px;
+    display: block; // changed from flex to block if you don't need flex behaviors
+    cursor: pointer; // to indicate it's clickable
+    // ... other styles if needed
+
+    &:hover {
+      color: #4285f4; // this ensures the text color changes to blue on hover
+    }
+  }
+
+
+  div {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+button {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+
+  button:hover {
+    background-color:#555;
+  }
+}
+
+button[type="submit"] {
+  background-color: #000;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-bottom: 5%;
+
+  &:hover {
+    text-decoration: none; 
+    background-color: #555; 
+  }
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+ 

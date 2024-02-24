@@ -1,0 +1,97 @@
+// carousel-prikaz-slika.scss
+.unos-slika{
+  position: relative;
+  margin: 20px auto;
+  max-width: 400px; 
+  max-height: 200px;
+  padding: 0 20px; 
+  box-sizing: border-box;
+
+  .carousel-slika {
+    position: relative;
+    padding: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 165px; 
+      height: 170px;
+      object-fit: cover;
+      border-radius: 4px; 
+    }
+
+    .image-number {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      padding: 5px;
+      border-radius: 50%;
+      z-index: 5;
+      font-size: 0.875rem; 
+    }
+
+    .ukloni-sliku-dugme {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgba(255, 0, 0, 0.75);
+      border: none;
+      color: white;
+      padding: 5px;
+      border-radius: 50%;
+      z-index: 5;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(255, 0, 0, 0.9);
+      }
+    }
+  }
+
+  .custom-arrow {
+    &.next-arrow, &.prev-arrow {
+      margin-top: 100px;
+      z-index: 25;
+      width: 20px; 
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black; 
+      font-size: 1.5rem;
+      cursor: pointer;
+
+      &:before {
+        font-family: 'slick'; 
+        color: black; 
+        font-size: 20px; 
+      }
+    }
+
+    &.next-arrow {
+      right: -25px; 
+    }
+
+    &.prev-arrow {
+      left: -25px; 
+    }
+  }
+
+  .slick-list {
+    margin: 0 -10px;
+  }
+
+  .slick-slide {
+    padding: 0 10px; 
+    box-sizing: border-box;
+  }
+
+  .slick-dots {
+    bottom: -25px;
+
+    li button:before {
+      color: black; 
+    }
+  }
+}

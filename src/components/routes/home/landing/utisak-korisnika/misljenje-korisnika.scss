@@ -1,0 +1,48 @@
+.misljenje-korisnika {
+    text-align: center;
+    .slick-slider {
+      margin: 0 auto;
+      padding: 20px; 
+  
+      .slick-list {
+        padding-top: 5px;
+        overflow: hidden;
+        padding-bottom: 5px;
+      }
+    }
+  
+    .izjava {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border-radius: 10px;
+      margin-right: 10px; 
+      padding: 20px;
+      min-height: 200px;
+      max-height: 100%;
+      max-width: 88%; 
+      .slika-korisnika {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+      }
+  
+      h4 {
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .strelice{
+
+      .slick-prev:before, .slick-next:before {
+       color: black;
+        }
+      } 
+   
+  
+      &:before {
+        font-size: 30px;
+      }
+    }
+  
+  

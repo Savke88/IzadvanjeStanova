@@ -1,0 +1,56 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+
+.logo img {
+  width: 50px;
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.left-components,
+.right-components {
+  display: flex; 
+  align-items: center; 
+}
+
+.right-components nav ul {
+  justify-content: flex-end; 
+}
+
+.left-components nav li,
+.right-components nav li {
+  margin-right: 10px;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+}
+
+.odjava {
+  padding: 5px 10px; 
+  background-color: silver;
+  border-radius: 4px; 
+  transition: background-color 0.3s ease; 
+
+  &:hover {
+    background-color: #333; 
+    color: white; 
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

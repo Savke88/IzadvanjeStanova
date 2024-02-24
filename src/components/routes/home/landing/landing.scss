@@ -1,0 +1,60 @@
+.landing-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin: 0 3%;
+  
+    &.izdavanje {
+      .image-section {
+        flex: 0 0 47%;
+        margin-right: 3%;
+      }
+      .text-section {
+        flex: 0 0 47%;
+        margin-left: 3%;
+      }
+    }
+  
+    &.zakupci {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      .image-section {
+        flex: 0 0 47%;
+        margin-left: 3%;
+      }
+      .text-section {
+        flex: 0 0 47%;
+        margin-right: 3%;
+      }
+    }
+  
+    .image-section img {
+      width: 100%;
+      height: auto;
+    }
+  
+    .text-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      
+      h1, p {
+        margin-bottom: 15px;
+      }
+  
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+  .carousel-slider h1{
+    text-align: center;
+  }
+  

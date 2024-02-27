@@ -27,40 +27,44 @@ const Izdaj = () => {
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        const mappedFiles = files.map((file) => ({
-            file,
+        const noveSlike = files.map(file => ({
+            file: file,
             prikaz: URL.createObjectURL(file),
-            name: file.name,
+            name: file.name
         }));
-
-        setSlike(mappedFiles);
+        setSlike(noveSlike);
         setUploadableImages(files);
     };
 
     const handleRemoveImage = (imageName) => {
-        setSlike(slike.filter((slika) => slika.name !== imageName));
-        setUploadableImages(uploadableImages.filter((file) => file.name !== imageName));
+        setSlike(slike.filter(slika => slika.name !== imageName));
+        setUploadableImages(uploadableImages.filter(file => file.name !== imageName));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handlePaymentSubmit = async () => {
+        // Payment logic will be triggered here
+        // Dummy implementation for demonstration
+        return true; // This should be the result of the payment process
+    };
 
-        const imagesUrls = await Promise.all(
-            uploadableImages.map(async (file) => {
-                const storageReference = storageRef(storage, `images/${file.name}`);
-                const uploadResult = await uploadBytes(storageReference, file);
-                return getDownloadURL(uploadResult.ref);
-            }),
-        );
+    const onSuccessfulPayment = async () => {
+        // Upload images to Firebase Storage and get their URLs
+        const imagesUrls = await Promise.all(uploadableImages.map(async (file) => {
+            const storageReference = storageRef(storage, `images/${file.name}`);
+            const uploadResult = await uploadBytes(storageReference, file);
+            return getDownloadURL(uploadResult.ref);
+        }));
 
-        const podaciZaCuvanje = {
+        // Add a new document with a generated id.
+        const docData = {
             ...podaciForme,
             images: imagesUrls,
             createdAt: new Date(),
         };
 
         try {
-            await addDoc(collection(db, 'Nektretnine'), podaciZaCuvanje);
+            await addDoc(collection(db, 'Nektretnine'), docData);
+            // Reset form and state after successful submission
             setPodaciForme({
                 tipImovine: '',
                 tip: '',
@@ -72,32 +76,44 @@ const Izdaj = () => {
                 kvadratniMetar: '',
             });
             setSlike([]);
-            setUploadableImages([]);
+            alert('Vaša nekretnina je uspešno objavljena i plaćanje je izvršeno.');
         } catch (error) {
             console.error('Error adding document: ', error);
+            alert('Greška prilikom dodavanja dokumenta.');
+        }
+    };
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const paymentSuccess = await handlePaymentSubmit();
+        if (paymentSuccess) {
+            onSuccessfulPayment();
+        } else {
+            alert('Plaćanje nije bilo uspešno, molimo vas pokušajte ponovo');
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Izdajte ili prodajte vašu nektretninu</h1>
-            <PoljaForme podaciForme={podaciForme} setPodaciForme={setPodaciForme} />
-            <input
-                id="file-upload"
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleFileChange}
-                style={{ display: 'none' }}
-            />
-            <PrikazSlika slike={slike} onRemove={handleRemoveImage} />
-            <label htmlFor="file-upload" className="lazni-image-input">
-                Umetnite slike vašeg stambenog objekta
-            </label>
-            <small>Možete dodati do 10 slika.</small>
-            <Placanje />
-            <button type="submit">Objavi</button>
-        </form>
+        <>
+            <form className='izdaj-forma' onSubmit={handleFormSubmit}>
+                <h1>Izdajte ili prodajte vašu nektretninu</h1>
+                <PoljaForme podaciForme={podaciForme} setPodaciForme={setPodaciForme} />
+                <input
+                    id="file-upload"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                />
+                <PrikazSlika slike={slike} setSlike={setSlike} onRemove={handleRemoveImage} />
+                <label htmlFor="file-upload" className="lazni-image-input">
+                    Umetnite slike vašeg stambenog objekta
+                </label>
+                <small>Možete dodati do 10 slika.</small>
+                <Placanje onSuccessfulPayment={onSuccessfulPayment} onPaymentSubmit={handlePaymentSubmit} />
+            </form>
+        </>
     );
 };
 

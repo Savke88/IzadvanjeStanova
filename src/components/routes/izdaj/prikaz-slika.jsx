@@ -18,10 +18,11 @@ const PrikazSlika = ({ slike, setSlike }) => {
   };
   
 
-  const brisanjeSlika = (slikaToRemove) => {
-    setSlike(slike.filter(slika => slika.file !== slikaToRemove.file));
-    URL.revokeObjectURL(slikaToRemove.prikaz);
-  };
+// In PrikazSlika.jsx
+const brisanjeSlika = (imageName) => {
+  setSlike(prevImages => prevImages.filter(image => image.name !== imageName));
+};
+
 
   return (
     <div className="Omotac-za-slike">

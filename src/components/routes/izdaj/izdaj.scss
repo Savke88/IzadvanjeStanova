@@ -53,6 +53,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin-bottom: 5%;
 
   button:hover {
     background-color:#555;
@@ -80,4 +81,10 @@ h1 {
   margin-bottom: 30px;
 }
 
- 
+.opisObjekta {
+  min-height: 100px; // Initial height
+  width: 100%; // Full width
+  resize: none; // Disable manual resizing
+  overflow-y: hidden; // Prevent scrollbar
+  // Additional styling as needed...
+}

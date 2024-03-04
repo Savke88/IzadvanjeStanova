@@ -7,13 +7,13 @@ import PoljaForme from './polja-forme';
 import PrikazSlika from './prikaz-slika';
 import './izdaj.scss';
 import Placanje from '../../placanje/placanje';
-
+import paymentSucceeded from '../../placanje/placanje'
 const db = getFirestore(app);
 const storage = getStorage(app);
 
 const Izdaj = () => {
     const [podaciForme, setPodaciForme] = useState({
-        tipImovine: '',
+        tipImovine: 'Izdavanje',
         tip: '',
         ime: '',
         lokacija: '',
@@ -21,6 +21,7 @@ const Izdaj = () => {
         opstina: '',
         cena: '',
         kvadratniMetar: '',
+        opis: ''
     });
     const [slike, setSlike] = useState([]);
     const [uploadableImages, setUploadableImages] = useState([]);
@@ -41,14 +42,9 @@ const Izdaj = () => {
         setUploadableImages(uploadableImages.filter(file => file.name !== imageName));
     };
 
-    const handlePaymentSubmit = async () => {
-        // Payment logic will be triggered here
-        // Dummy implementation for demonstration
-        return true; // This should be the result of the payment process
-    };
 
     const onSuccessfulPayment = async () => {
-        // Upload images to Firebase Storage and get their URLs
+        
         const imagesUrls = await Promise.all(uploadableImages.map(async (file) => {
             const storageReference = storageRef(storage, `images/${file.name}`);
             const uploadResult = await uploadBytes(storageReference, file);
@@ -66,7 +62,7 @@ const Izdaj = () => {
             await addDoc(collection(db, 'Nektretnine'), docData);
             // Reset form and state after successful submission
             setPodaciForme({
-                tipImovine: '',
+                tipImovine: 'Izdavanje',
                 tip: '',
                 ime: '',
                 lokacija: '',
@@ -74,9 +70,14 @@ const Izdaj = () => {
                 opstina: '',
                 cena: '',
                 kvadratniMetar: '',
+                opis: ''
             });
             setSlike([]);
+            if(paymentSucceeded){
             alert('Vaša nekretnina je uspešno objavljena i plaćanje je izvršeno.');
+            }else {
+            alert('Vaša nekretnina je uspešno objavljena i plaćanje je izvršeno.');
+        }
         } catch (error) {
             console.error('Error adding document: ', error);
             alert('Greška prilikom dodavanja dokumenta.');
@@ -85,12 +86,6 @@ const Izdaj = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const paymentSuccess = await handlePaymentSubmit();
-        if (paymentSuccess) {
-            onSuccessfulPayment();
-        } else {
-            alert('Plaćanje nije bilo uspešno, molimo vas pokušajte ponovo');
-        }
     };
 
     return (
@@ -111,7 +106,7 @@ const Izdaj = () => {
                     Umetnite slike vašeg stambenog objekta
                 </label>
                 <small>Možete dodati do 10 slika.</small>
-                <Placanje onSuccessfulPayment={onSuccessfulPayment} onPaymentSubmit={handlePaymentSubmit} />
+                <Placanje onSuccessfulPayment={onSuccessfulPayment}  />
             </form>
         </>
     );

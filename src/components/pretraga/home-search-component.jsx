@@ -32,10 +32,6 @@ function SearchComponent() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Search Query:', searchQuery);
-    console.log('Location:', location);
-    console.log('Object Type:', objectType);
-    console.log('Price Range:', `${priceFrom} - ${priceTo}`);
   };
 
   return (
@@ -44,10 +40,15 @@ function SearchComponent() {
         <label>Opština:</label>
         <select name="location" value={location} onChange={handleInputChange}>
         <option value="">Izaberi opštinu</option>
-          <option value="K.Mitrovica">K.Mitrovica</option>
-          <option value="Gracanica">Gračanica</option>
-          <option value="Strpce">Štrpce</option>
+          <option value="Gračanica">Gračanica</option>
           <option value="Gnjilane">Gnjilane</option>
+          <option value="K.Mitrovica">K.Mitrovica</option>
+          <option value="Leposavić">Leposavić</option>
+          <option value="Peć">Peć</option>
+          <option value="Zvečan">Zvečan</option>
+          <option value="Zubin Potok">Zubin Potok</option>
+          <option value="Štrpce">Štrpce</option>
+
         </select>
       </div>
       <div>

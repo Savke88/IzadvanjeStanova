@@ -3,57 +3,64 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f2f2f2; 
-  padding: 20px; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  width: 80%; 
-  max-width: 400px; 
-  margin: auto; 
+  background-color: #fff; // Assuming a white background as in the screenshot
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; // Width increased to accommodate larger labels
+  margin: 20px auto;
 
   div {
     display: flex;
-    align-items: center;
-    margin-bottom: 16px; 
+    flex-direction: column; // Changed to column for vertical alignment
+    width: 100%;
+    margin-bottom: 16px;
 
     label {
-      margin-right: 8px; 
-      font-weight: bold; 
+      font-weight: bold;
+      color: #333; // Darker label color for contrast
+      margin-bottom: 8px; // Space between label and input
     }
 
-    select,
-    input {
-      height: 35px; 
-      padding: 6px 12px; 
-      border: 1px solid #ccc; 
-      border-radius: 4px; 
-      width: 100%; 
-      text-align: center; 
-    }
-
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    input[type="number"] {
-      appearance: textfield;
+    select {
+      height: 35px;
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      text-align: left; // Text aligned to left
     }
   }
 
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+  input[type=number]{
+    height: 30px;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%;
+    text-align: left; 
+    
+  }
+
   button[type="submit"] {
-    background-color: #007bff; 
-    color: white; 
-    padding: 10px 20px; 
+    background-color: #d9534f; 
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px; 
-    cursor: pointer; 
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
+    width: 100%; 
     transition: background-color 0.3s ease;
+    
 
     &:hover {
-      background-color: #0056b3; 
+      background-color: rgb(56, 157, 56); 
     }
   }
 }

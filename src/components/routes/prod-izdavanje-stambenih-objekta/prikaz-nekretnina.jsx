@@ -73,11 +73,11 @@ const PrikazNekretnina = () => {
                 
               </div>
               <p>{nekretnina.tip}</p>
-                <p>{nekretnina.opstina}</p>
-                <p>{nekretnina.lokacija}</p>
-                <p>{nekretnina.adresa}</p>
-                <p>{nekretnina.cena} €</p>
-                <p>{nekretnina.kvadratniMetar} m²</p>
+                <p>Opština:{nekretnina.opstina}</p>
+                <p>Mesto:{nekretnina.lokacija}</p>
+                <p>Adresa:{nekretnina.adresa}</p>
+                <p>Cena:{nekretnina.cena} €</p>
+                <p>Kvadranih metara:{nekretnina.kvadratniMetar} m²</p>
             </div>
           ))}
         </div>

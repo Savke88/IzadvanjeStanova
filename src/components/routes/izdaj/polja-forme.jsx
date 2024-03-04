@@ -86,8 +86,22 @@ const PoljaForme = ({ podaciForme, setPodaciForme }) => {
           <input type="number" name="kvadratniMetar" value={podaciForme.kvadratniMetar} onChange={handleChange} required />
         </label>
       </div>
+      <div>
+  <label>
+    Detaljno opišite vaš stambeni objekat:
+    <textarea 
+      className='opisObjekta' 
+      name='opis' 
+      value={podaciForme.opis} 
+      onChange={handleChange} 
+      required 
+      maxLength={1000} // Set the maximum number of characters
+    />
+  </label>
+</div>
     </>
   );
 };
 
 export default PoljaForme;
+

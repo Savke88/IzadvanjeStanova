@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import "./home-search-component.scss"
+import './home-search-component.scss';
+import { useNavigate } from 'react-router-dom';
+import LokacijeOpstina from '../routes/home/landing/opstine/lokacije-opstina';
+
 function SearchComponent() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [location, setLocation] = useState('');
-  const [objectType, setObjectType] = useState('');
-  const [priceFrom, setPriceFrom] = useState('');
-  const [priceTo, setPriceTo] = useState('');
+  const [opstina, setOpstina] = useState('');
+  const [tip, setTip] = useState('');
+  const [cenaOd, setCenaOd] = useState('');
+  const [cenaDo, setCenaDo] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
-      case 'searchQuery':
-        setSearchQuery(value);
+      case 'opstina':
+        setOpstina(value);
         break;
-      case 'location':
-        setLocation(value);
+      case 'tip':
+        setTip(value);
         break;
-      case 'objectType':
-        setObjectType(value);
+      case 'cenaOd':
+        setCenaOd(value);
         break;
-      case 'priceFrom':
-        setPriceFrom(value);
-        break;
-      case 'priceTo':
-        setPriceTo(value);
+      case 'cenaDo':
+        setCenaDo(value);
         break;
       default:
         break;
@@ -32,57 +32,40 @@ function SearchComponent() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    navigate('/nekretnine', { state: { opstina, tip, cenaOd, cenaDo } });
   };
 
   return (
     <form className='forma' onSubmit={handleSubmit}>
       <div>
         <label>Opština:</label>
-        <select name="location" value={location} onChange={handleInputChange}>
-        <option value="">Izaberi opštinu</option>
-          <option value="Gračanica">Gračanica</option>
-          <option value="Gnjilane">Gnjilane</option>
-          <option value="K.Mitrovica">K.Mitrovica</option>
-          <option value="Leposavić">Leposavić</option>
-          <option value="Peć">Peć</option>
-          <option value="Zvečan">Zvečan</option>
-          <option value="Zubin Potok">Zubin Potok</option>
-          <option value="Štrpce">Štrpce</option>
-
+        <select className='polje-pretrage' name="opstina" value={opstina} onChange={handleInputChange}>
+          <option value="" disabled>Izaberite opštinu</option>
+          {LokacijeOpstina.map(opstina => (
+            <option key={opstina.ime} value={opstina.ime}>{opstina.ime}</option>
+          ))}
         </select>
       </div>
       <div>
         <label>Tip objekta:</label>
-        <select name="objectType" value={objectType} onChange={handleInputChange}>
-          <option value="">Izaberi tip</option>
-          <option value="kuca">Kuća</option>
-          <option value="stan">Stan</option>
-          <option value="kancelarija">Kancelarija</option>
-          <option value="lokal">Lokal</option>
+        <select name="tip" value={tip} onChange={handleInputChange}>
+          <option disabled value="">Izaberi tip objekta</option>
+          <option value="Stan">Stan</option>
+          <option value="Kuća">Kuća</option>
+          <option value="Lokal">Lokal</option>
+          <option value="Kancelarija">Kancelarija</option>
         </select>
       </div>
       <div>
-        <label>Cena od:</label>
-        <input
-          name="priceFrom"
-          type="number"
-          placeholder="Od"
-          value={priceFrom}
-          onChange={handleInputChange}
-        />
+        <label>Cena od(€):</label>
+        <input name="cenaOd" type="number" placeholder="Od" value={cenaOd} onChange={handleInputChange} />
       </div>
       <div>
-        <label>Cena do:</label>
-        <input
-          name="priceTo"
-          type="number"
-          placeholder="Do"
-          value={priceTo}
-          onChange={handleInputChange}
-        />
+        <label>Cena do(€):</label>
+        <input name="cenaDo" type="number" placeholder="Do" value={cenaDo} onChange={handleInputChange} />
       </div>
       <div>
-        <button type="submit">Pretraži</button>
+        <button type="submit">Pretražite</button>
       </div>
     </form>
   );

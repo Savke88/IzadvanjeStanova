@@ -27,10 +27,10 @@ const PoljaForme = ({ podaciForme, setPodaciForme }) => {
           Tip objekta:
           <select name="tip" value={podaciForme.tip} onChange={handleChange} required>
             <option value="" disabled>Odaberite tip</option>
-            <option value="stan">Stan</option>
-            <option value="kuća">Kuća</option>
-            <option value="lokal">Lokal</option>
-            <option value="kancelarija">Kancelarija</option>
+            <option value="Stan">Stan</option>
+            <option value="Kuća">Kuća</option>
+            <option value="Lokal">Lokal</option>
+            <option value="Kancelarija">Kancelarija</option>
           </select>
         </label>
       </div>
@@ -95,7 +95,6 @@ const PoljaForme = ({ podaciForme, setPodaciForme }) => {
       value={podaciForme.opis} 
       onChange={handleChange} 
       required 
-      maxLength={1000} // Set the maximum number of characters
     />
   </label>
 </div>

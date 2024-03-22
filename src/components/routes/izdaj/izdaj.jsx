@@ -8,6 +8,7 @@ import PrikazSlika from './prikaz-slika';
 import './izdaj.scss';
 import Placanje from '../../placanje/placanje';
 import paymentSucceeded from '../../placanje/placanje'
+import { getAuth } from 'firebase/auth';
 const db = getFirestore(app);
 const storage = getStorage(app);
 
@@ -44,6 +45,14 @@ const Izdaj = () => {
 
 
     const onSuccessfulPayment = async () => {
+
+        const auth = getAuth(); // Initialize Firebase Auth
+        const user = auth.currentUser; // Get the currently signed-in user
+
+        if (!user) {
+            alert('You must be signed in to post a property.');
+            return;
+        }
         
         const imagesUrls = await Promise.all(uploadableImages.map(async (file) => {
             const storageReference = storageRef(storage, `images/${file.name}`);
@@ -56,6 +65,7 @@ const Izdaj = () => {
             ...podaciForme,
             images: imagesUrls,
             createdAt: new Date(),
+            userId: user.uid,
         };
 
         try {

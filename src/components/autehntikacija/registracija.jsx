@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import './registracija.scss';
 import { Link } from "react-router-dom";
 
@@ -13,6 +14,29 @@ const Registracija = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
+  const resetFormFields = () => {
+    setFirstName('');
+    setLastName('');
+    setPhone('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+
+  const storeUserData = async (uid, email, firstName, lastName, phone) => {
+    try{
+      await setDoc(doc(db, 'users', uid), {
+        email,
+        firstName,
+        lastName,
+        phone
+      });
+    } catch (error) {
+        console.error('Greska prilikom cuvanja korisnickih podataka', error);
+      }
+    }
+  
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -21,6 +45,9 @@ const Registracija = () => {
     }
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await storeUserData(userCredential.user.uid, email, firstName, lastName, phone);
+      alert("uspesno ste se prijavili");
+      resetFormFields();
     } catch (error) {
       setErrorMessage('Greška prilikom registracije: ' + error.message);
     }
@@ -30,6 +57,19 @@ const Registracija = () => {
     const provider = new GoogleAuthProvider();
     try {
       const userCredential = await signInWithPopup(auth, provider);
+      const profil = userCredential.user.providerData[0];
+      let firstName = '';
+    let lastName = '';
+    if (profil.displayName) {
+      const names = profil.displayName.split(' ');
+      firstName = names[0];
+      if (names.length > 1) {
+        lastName = names[names.length - 1];
+      }
+    }
+      await storeUserData(userCredential.user.uid, profil.email, firstName, lastName, profil.phoneNumber || '')
+      alert("uspesno ste se prijavili");
+      resetFormFields();
     } catch (error) {
       setErrorMessage('Greška prilikom Google registracije: ' + error.message);
     }

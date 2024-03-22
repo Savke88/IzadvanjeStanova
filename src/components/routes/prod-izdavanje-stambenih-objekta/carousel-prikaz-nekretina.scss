@@ -1,0 +1,40 @@
+.prikaz-nekretnina {
+  width: 100%;
+  position: relative;
+  
+  .slick-list {
+    margin: 0;
+  }
+
+  .slick-slide {    box-sizing: border-box;
+    
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .strelica-desno, .strelica-levo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 5%;
+    height: 5%;
+    height: auto; 
+    cursor: pointer;
+    color: white; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .strelica-desno {
+    right: 0;
+  }
+
+  .strelica-levo {
+    left: 0;
+  }
+
+}

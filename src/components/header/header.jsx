@@ -47,8 +47,8 @@ const Header = () => {
       <div className="right-components">
         <nav>
           <ul>
-            <li><Link to="/pretraga">Pretraga</Link></li>
-            <li><Link to="/izdaj">Izdaj</Link></li>
+            {/* <li><Link to="/pretraga">Pretraga</Link></li> */}
+            <li><Link to="/izdaj">Izdajte vašu nekretninu</Link></li>
             {currentUser ? (
               <>
                 <li>{currentUser.displayName || currentUser.email}</li>

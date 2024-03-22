@@ -1,17 +1,16 @@
-// CarouselPrikazSlika.js
 
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './carousel-prikaz-slika.scss';
+import './carousel-prikaz-nekretina.scss'
 
-const CarouselPrikazSlika = ({ slike, onRemove }) => {
+const CarouselPrikazNekretnina= ({ slike }) => {
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -26,7 +25,7 @@ const CarouselPrikazSlika = ({ slike, onRemove }) => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1
         },
       },
@@ -37,40 +36,34 @@ const CarouselPrikazSlika = ({ slike, onRemove }) => {
     const { className, style, onClick } = props;
     return (
       <div
-        className={`${className} custom-arrow next-arrow`}
+        className={`${className} strelica-desno`}
         style={{ ...style, display: "block" }}
         onClick={onClick}
       />
     );
   }
-
+  
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
       <div
-        className={`${className} custom-arrow prev-arrow`}
+        className={`${className} strelica-levo`}
         style={{ ...style, display: "block" }}
         onClick={onClick}
       />
     );
   }
+  
 
   return (
-    <Slider  className="unos-slika"{...settings}>
-      {slike.map((slika, index) => (
-        <div key={slika.name} className="carousel-slika">
-          <div className="image-number">{index + 1}</div>
-          <img src={slika.prikaz} alt={`Prikaz ${index + 1}`} />
-          <button 
-            className="ukloni-sliku-dugme" 
-            onClick={() => onRemove(slika.name)}
-          >
-            X
-          </button>
+    <Slider className="prikaz-nekretnina" {...settings}>
+      {slike.map((imageURL, index) => (
+        <div key={index} className="carousel-slika">
+          <img src={imageURL} alt={`Slika ${index + 1}`} />
         </div>
       ))}
     </Slider>
   );
 };
 
-export default CarouselPrikazSlika;
+export default CarouselPrikazNekretnina;

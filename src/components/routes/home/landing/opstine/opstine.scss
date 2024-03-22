@@ -1,24 +1,44 @@
 .opstine {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px; 
-  
-    .opstina {
-      position: relative; 
-      text-align: center; 
-  
-      img {
-        width: 365px; 
-        height: 260px; 
-      }
-  
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
+  .opstina {
+    position: relative;
+    text-align: center;
+    transition: transform 0.3s ease-in-out; 
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px); /* Move up on hover */
+
       h2 {
-        position: absolute; 
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%); 
-        color: white;
-        width: 100%; 
+        color: rgb(55, 55, 246); /* Change color on hover */
+      }
+
+      img {
+        transform: scale(1.05); /* Slightly enlarge the image */
+        transition: transform 0.3s ease-in-out; /* Add transition for smooth effect */
       }
     }
+
+    img {
+      width: 365px;
+      height: 260px;
+      border-radius: 8px; /* Match the border-radius with .nekretnina-card */
+      transition: transform 0.3s ease-in-out; /* Add transition for smooth effect */
+    }
+
+    h2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      width: 100%;
+      padding: 10px 0; /* Add some padding */
+      border-radius: 8px; /* Match the border-radius with .nekretnina-card */
+      transition: color 0.3s; /* Add transition for color change */
+    }
   }
+}

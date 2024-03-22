@@ -1,52 +1,68 @@
 .nekretnine-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-  
-    .nekretnine-sadrzaj {
-      .nekretnine-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+
+  .nekretnine-sadrzaj {
+    .nekretnine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .nekretnina-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: translateY(-5px);
       }
-  
-      .nekretnina-card {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-  
-        &:hover {
-          transform: translateY(-5px);
+
+       a {
+        text-decoration: none;
+      }
+      
+    
+       a h3 {
+        background-color: #f7f7f7;
+        padding: 10px;
+        margin-top: 0;
+        color: #333;
+        transition: color 0.3s; 
+      }
+      
+
+      a:hover h3 {
+        color: rgb(55, 55, 246); 
+      }
+
+      .nekretnina-slika {
+        padding: 10px 0;
+
+        img {
+          height: 150px; 
+          object-fit: cover;
+          border-radius: 4px;
         }
-  
-        h3 {
-          background-color: #f7f7f7;
-          padding: 10px;
-          margin-top: 0;
-          color: #333;
-        }
-  
-        .nekretnina-slika {
-          display: flex;
-          overflow-x: auto;
-          gap: 10px;
-          padding: 10px 0;
-  
-          img {
-            height: 150px; // Adjust this value as needed to fit your design
-            object-fit: cover;
-            flex: 0 0 auto;
-            border-radius: 4px;
-          }
-        }
-  
-        p {
-          padding: 0 10px;
-          margin: 5px 0;
-        }
+      }
+
+      p {
+        padding: 0 10px;
+        margin: 5px 0;
       }
     }
   }
-  
+}
+
+
+.carousel-slika {
+width: 100%; 
+
+img {
+  width: 100%; 
+  height: auto; 
+}
+}

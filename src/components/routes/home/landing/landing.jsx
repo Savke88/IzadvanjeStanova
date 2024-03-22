@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import stan1 from "../../../../slike/slike-landing/stan1.jpg";
 import stan2 from "../../../../slike/slike-landing/stan2.jpg";
 import CarouselComponent from "../../../../carousel-component/carousel";
@@ -7,6 +8,7 @@ import UtisakKorisnika from "./utisak-korisnika/utisak.korisnika";
 import MisljenjeKorisnika from "./utisak-korisnika/misljenje-korisnika";
 import Opstine from "./opstine/opstine";
 const Landing = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="landing-container izdavanje">
@@ -33,7 +35,7 @@ const Landing = () => {
               podrška
             </li>
           </ul>
-          <button>Izdaj</button>
+          <button onClick={() => navigate('/izdaj')}>Izdaj</button>
         </div>
       </div>
 
@@ -50,7 +52,7 @@ const Landing = () => {
             potpuni uvid u sve što vam je važno.
           </p>
           <div className="dugme">
-          <button>Iznajmi</button>
+          <button onClick={() => navigate('/nekretnine')}>Iznajmi</button>
           </div>
         </div>
         <div className="image-section">

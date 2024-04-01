@@ -1,18 +1,31 @@
+//detalji-posebnih-nekretnina.scss
 .imanje {
     max-width: 80%; 
     margin: 0 auto; 
     padding: 2px 5%; 
     box-sizing: border-box;
-  
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    button{
+      margin-right: 2%;
+    }
+
     h1 {
       text-align: center;
       margin-bottom: 20px;
+      font-size: 2.5rem;
     }
   
     .imanje-slika {
-        align-items: center;
-      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-bottom: 20px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
 
       .strelica-desno, .strelica-levo {
         position: absolute;
@@ -54,9 +67,12 @@
     }
   
     .red-detalji {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-gap: 20px;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
 
       p {
         white-space: pre-line;
@@ -65,7 +81,20 @@
     }
   
     .opis {
+
       margin-top: 20px;
+      min-height: 10%;
+      border: 1px solid #ddd;
+      padding: 10px;
+      textarea {
+        width: 100%; 
+        min-height: 10%; 
+        box-sizing: border-box; 
+      }
+      textarea::-webkit-scrollbar {
+        display: none; 
+      }
+      
       p {
         white-space: pre-line;
         margin-right: 1%;

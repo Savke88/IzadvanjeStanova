@@ -1,3 +1,4 @@
+//carousel-prikaz-nekretnina.scss
 .prikaz-nekretnina {
   width: 100%;
   position: relative;
@@ -6,7 +7,8 @@
     margin: 0;
   }
 
-  .slick-slide {    box-sizing: border-box;
+  .slick-slide {    
+    box-sizing: border-box;
     
     img {
       width: 100%;

@@ -13,7 +13,7 @@
     // ... other styles if needed
 
     &:hover {
-      color: #4285f4; // this ensures the text color changes to blue on hover
+      color: #4285f4; 
     }
   }
 
@@ -53,7 +53,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 
   button:hover {
     background-color:#555;
@@ -79,11 +79,4 @@ h1 {
   color: #333;
   font-size: 24px;
   margin-bottom: 30px;
-}
-
-.opisObjekta {
-  min-height: 100px; 
-  width: 100%; 
-  resize: none; 
-  overflow-y: hidden; 
 }

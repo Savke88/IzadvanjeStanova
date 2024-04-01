@@ -27,8 +27,9 @@ const brisanjeSlika = (imageName) => {
   return (
     <div className="Omotac-za-slike">
       <label htmlFor="slike" className="licni-unos-slika">
-        Izaberite slike za vaš objekat
+        Izaberite slike za vaš objekat:
       </label>
+      <small>Možete dodati do 10 slika.</small>
       <input
         id="slike"
         type="file"

@@ -1,12 +1,14 @@
-import React from "react";
+import { React, useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-
+import './placanje.scss'
 const Placanje = ({ onSuccessfulPayment }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handlePaymentSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     let paymentSucceeded = false;
     if (!stripe || !elements) {
@@ -22,10 +24,11 @@ const Placanje = ({ onSuccessfulPayment }) => {
 
     if (error) {
       console.log("[createPaymentMethod error]", error);
+      setIsSubmitting(false);
       return false;
     }
 
-    console.log(`PaymentMethod created with ID: ${paymentMethod.id}`)
+    console.log(`PaymentMethod created with ID: ${paymentMethod.id}`);
 
     try {
       const paymentIntentResponse = await fetch(
@@ -38,14 +41,10 @@ const Placanje = ({ onSuccessfulPayment }) => {
           body: JSON.stringify({ amount: 500 }),
         }
       );
-      let paymentIntentData;
-      if(paymentIntentResponse.ok){
-
-       paymentIntentData = await paymentIntentResponse.json();
-       console.log('PaymentIntet odgovor je dobijen', paymentIntentData)
-      } else{
-      console.error('Network response was not ok')
-    }
+      const paymentIntentData = await paymentIntentResponse.json();
+      if (!paymentIntentResponse.ok) {
+        console.error("Network response was not ok");
+      }
       if (!paymentIntentData.clientSecret) {
         throw new Error("Plaćanje nije moguće procesuirati.");
       }
@@ -56,13 +55,13 @@ const Placanje = ({ onSuccessfulPayment }) => {
           payment_method: {
             card: cardElement,
             billing_details: {
-              name: 'Test'
-            }
-          }
+              name: "Test",
+            },
+          },
         }
       );
 
-      console.log('Placanje je primeljeno', paymentResult)
+      console.log("Placanje je primeljeno", paymentResult);
       if (paymentResult.error) {
         throw new Error(paymentResult.error.message);
       }
@@ -72,17 +71,24 @@ const Placanje = ({ onSuccessfulPayment }) => {
         return true;
       }
     } catch (error) {
-      alert(error.message);
-      
+      console.log(error.message);
     }
-    onSuccessfulPayment(paymentSucceeded)
+    onSuccessfulPayment(paymentSucceeded);
+    setIsSubmitting(false);
     return paymentSucceeded;
   };
 
   return (
     <>
       <CardElement />
-      <button onClick={handlePaymentSubmit}>Platite vašu objavu</button>
+      <button
+        className={`payment-button ${isSubmitting ? "submitting" : ""}`}
+        disabled={isSubmitting}
+        onClick={handlePaymentSubmit}
+      >
+        Platite vašu objavu
+      </button>
+      <small className="uslovi-placanja">Klikom na dugme "Platite vašu objavu" prihvatate da vam bude naplaćeno 5€ sa vašeg računa preko kartice koju ste uneli</small>
     </>
   );
 };

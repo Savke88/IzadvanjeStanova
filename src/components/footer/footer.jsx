@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './footer.scss';
 import logo from '../../slike/logo.png';
@@ -9,27 +9,29 @@ import Whatsapp from '../../slike/slike-drustvenih-mreza/whatsapp_254409.png';
 import Viber from '../../slike/slike-drustvenih-mreza/viber_3670033.png';
 
 const Footer = () => {
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    window.location.href = `mailto:milosftnsavic@gmail.com?subject=Message from Website&body=${encodeURIComponent(message)}`;
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   window.location.href = `mailto:milosftnsavic@gmail.com?subject=Message from Website&body=${encodeURIComponent(message)}`;
+  // };
 
   return (
     <footer>
-      <div className="footeryarn star-left">
+      <div className="footer star-left">
         <div className="logo">
           <Link to="/"><img src={logo} alt="Logo" /></Link>
         </div>
         <div className="contact">
-          <p><strong>Kontakt</strong></p>
+          <Link to="/kontakt">
+          <h1><strong>Kontakt</strong></h1>
+          </Link>
           <p>Email: milosftnsavic@gmail.com</p>
           <p>Adresa: 7 Knjaza Miloša, Kosovska Mitrovica, Srbija</p>
           <p>Telefon: +381xxxxxxxxx</p>
         </div>
       </div>
-      <div className="footer-center">
+      {/* <div className="footer-center">
         <form onSubmit={handleSubmit}>
           <textarea 
             value={message} 
@@ -38,9 +40,9 @@ const Footer = () => {
           />
           <button type="submit" className="send-email-btn">Pošalji poruku putem email-a</button>
         </form>
-      </div>
+      </div> */}
       <div className="footer-right">
-        <h2><strong>Druge platforme:</strong></h2>
+        <h2><strong>Platforme drustvenih mreža </strong></h2>
         <div className="social-links">
           <a href="https://instagram.com"><img src={instagram} alt="Instagram" /></a>
           <a href="https://facebook.com"><img src={facebook} alt="Facebook" /></a>

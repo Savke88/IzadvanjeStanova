@@ -114,7 +114,10 @@ const PrikazNekretnina = () => {
               <Link to={`/nekretnine/${nekretnina.id}`}>
                 <h3>{nekretnina.ime}</h3>
               </Link>
-              <p>{nekretnina.tipImovine}</p>
+              <div className="red-prikaz-nekretnina">
+              <p>Tip Imovine:{nekretnina.tipImovine}</p>
+              <p>Tip objekta:{nekretnina.tip}</p>
+              </div>
               <div className="nekretnina-slika">
                 {nekretnina.images && nekretnina.images.length > 0 ? (
                   <CarouselPrikazNekretnina slike={nekretnina.images} />
@@ -122,12 +125,14 @@ const PrikazNekretnina = () => {
                   <p>Nemamo slika za prikazivanje</p>
                 )}
               </div>
-              <p>{nekretnina.tip}</p>
+              <div className="red-prikaz-nekretnina">
               <p>Opština:{nekretnina.opstina}</p>
               <p>Mesto:{nekretnina.lokacija}</p>
-              <p>Adresa:{nekretnina.adresa}</p>
+              </div>
+              <div className="red-prikaz-nekretnina">
               <p>Cena:{nekretnina.cena} €</p>
               <p>Kvadranih metara:{nekretnina.kvadratniMetar} m²</p>
+              </div>
             </div>
           ))}
         </div>

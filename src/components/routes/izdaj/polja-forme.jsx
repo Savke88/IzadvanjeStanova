@@ -1,15 +1,26 @@
-import React from 'react';
+import {React, useRef} from 'react';
 import LokacijeOpstina from "../home/landing/opstine/lokacije-opstina";
-
+import './polja-forme.scss'
 const PoljaForme = ({ podaciForme, setPodaciForme }) => {
+
+
+  const autoResizeTextArea = () => {
+    const textArea = textAreaRef.current;
+    textArea.style.height = 'auto'; // Temporarily shrink to auto height
+    textArea.style.height = `${textArea.scrollHeight}px`; // Set new height
+  };
+
+  const textAreaRef = useRef(null);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setPodaciForme({ ...podaciForme, [name]: value });
+        if(name === 'opis') {
+          autoResizeTextArea();
+      }
     };
 
     const filtriranaMesta = podaciForme.opstina ? LokacijeOpstina.find(opstina => opstina.ime === podaciForme.opstina)?.lokacija || [] : [];
-
-    
     return (
     <>
       <div>
@@ -90,12 +101,13 @@ const PoljaForme = ({ podaciForme, setPodaciForme }) => {
   <label>
     Detaljno opišite vaš stambeni objekat:
     <textarea 
-      className='opisObjekta' 
-      name='opis' 
-      value={podaciForme.opis} 
-      onChange={handleChange} 
-      required 
-    />
+  ref={textAreaRef}
+  className='opisObjekta' 
+  name='opis' 
+  value={podaciForme.opis} 
+  onChange={handleChange} 
+  required 
+/>
   </label>
 </div>
     </>

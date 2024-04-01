@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { doc, getDoc, getFirestore, deleteDoc, updateDoc } from "firebase/firestore";
 import { app } from "../../firebase/firebase";
@@ -17,7 +17,7 @@ const DetaljiPosebnihNekretnina = () => {
   const currentUser = auth.currentUser; 
   const [editMode, setEditMode] = useState(false);
   const [editedOpis, setEditedOpis] = useState(""); 
-
+  const textAreaRef = useRef(null);
   useEffect(() => {
     const fetchImanje = async () => {
       const docRef = doc(db, "Nektretnine", id);
@@ -36,12 +36,17 @@ const DetaljiPosebnihNekretnina = () => {
           }
         }
       } else {
-        console.log("No such document!");
+        console.log("Ne postoji dokument!");
       }
     };
-
     fetchImanje();
   }, [id, db]);
+
+  useEffect(() => {
+    if (editMode) {
+      autoResizeTextArea();
+    }
+  }, [editMode]);
 
   const handleDelete = async () => {
     await deleteDoc(doc(db, "Nektretnine", id));
@@ -50,10 +55,16 @@ const DetaljiPosebnihNekretnina = () => {
   const handleSave = async () => {
     const imanjeRef = doc(db, "Nektretnine", id);
     await updateDoc(imanjeRef, { opis: editedOpis });
-    setEditMode(false); // Exit edit mode
+    setEditMode(false); 
   };
 
-  if (!imanje || (imanje.userId && !user)) return <div>Loading...</div>;
+  const autoResizeTextArea = () => {
+    const textArea = textAreaRef.current;
+    textArea.style.height = 'inherit'; 
+    textArea.style.height = `${textArea.scrollHeight}px`;
+  };
+
+  if (!imanje || (imanje.userId && !user)) return <div>Učitavanje...</div>;
 
   return (
     <div className="imanje">
@@ -68,42 +79,44 @@ const DetaljiPosebnihNekretnina = () => {
       <div className="red-detalji">
         <p><strong>Tip Imovine:</strong> {imanje.tipImovine}</p>
         <p><strong>Tip objekta:</strong> {imanje.tip}</p>
+        <p><strong>Cena:</strong> {imanje.cena} €</p>
+        <p><strong>Kvadratnih Metara:</strong> {imanje.kvadratniMetar} m²</p>
       </div>
       <div className="red-detalji">
         <p><strong>Opština:</strong> {imanje.opstina}</p>
         <p><strong>Mesto:</strong> {imanje.lokacija}</p>
         <p><strong>Adresa:</strong> {imanje.adresa}</p>
       </div>
-      <div className="red-detalji">
-        <p><strong>Cena:</strong> {imanje.cena} €</p>
-        <p><strong>Kvadratnih Metara:</strong> {imanje.kvadratniMetar} m²</p>
-      </div>
       {user && (
-        <div className="red-detalji">
-          <p><strong>Ime:</strong> {user.firstName}</p>
-          <p><strong>Prezime:</strong> {user.lastName}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Telefon:</strong> {user.phone}</p>
-        </div>
-      )}
+  <div className="red-detalji">
+    <p><strong>Vlasnik:</strong> {`${user.firstName} ${user.lastName}`}</p>
+    <p><strong>Email:</strong> {user.email}</p>
+    <p><strong>Telefon:</strong> {user.phone}</p>
+  </div>
+)}
       <p className="opis">
-        <strong>Opis:</strong> 
+      <strong>Opis stambenog objekta: </strong>
         {!editMode ? (
-          imanje.opis
+          <p>{imanje.opis}</p>
         ) : (
           <textarea
+            ref={textAreaRef}
             value={editedOpis}
-            onChange={(e) => setEditedOpis(e.target.value)}
+            onChange={(e) => {
+              setEditedOpis(e.target.value);
+              autoResizeTextArea();
+            }}
+            onFocus={autoResizeTextArea}
           />
         )}
       </p>
       {currentUser && currentUser.uid === imanje.userId && (
         <>
-          <button onClick={() => setShowModal(true)}>Delete Post</button>
+          <button onClick={() => setShowModal(true)}>Obrišite vašu objavu</button>
           {!editMode ? (
-            <button onClick={() => setEditMode(true)}>Edit Description</button>
+            <button onClick={() => setEditMode(true)}>Promenite vaš opis</button>
           ) : (
-            <button onClick={handleSave}>Save</button>
+            <button onClick={handleSave}>Sačuvaj promene</button>
           )}
           <PotvrdaBrisanjaModal
             isOpen={showModal}

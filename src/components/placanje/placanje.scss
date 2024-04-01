@@ -1,8 +1,38 @@
-.StripeElement{
-  height: 300px;
-  // display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.payment-button {
+  position: relative;
+  overflow: hidden;
 }
 
+.payment-button.submitting {
+  background-color: darkgray;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: spin 1.2s linear infinite;
+  }
+}
+.uslovi-placanja{
+  margin-bottom: 5%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.payment-button:disabled {
+  cursor: not-allowed;
+}

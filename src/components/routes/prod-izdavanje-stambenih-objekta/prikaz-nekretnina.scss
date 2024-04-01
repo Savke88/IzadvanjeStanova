@@ -25,7 +25,12 @@
         text-decoration: none;
       }
       
-    
+      .red-prikaz-nekretnina {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+      }
        a h3 {
         background-color: #f7f7f7;
         padding: 10px;
@@ -52,7 +57,10 @@
       p {
         padding: 0 10px;
         margin: 5px 0;
+        border: solid 1px #ccc;
+        border-radius: 20px;
       }
+      
     }
   }
 }

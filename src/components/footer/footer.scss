@@ -4,7 +4,9 @@ footer {
   background-color: rgb(56, 47, 47);
   color: white;
 
-  .footer-left, .footer-center, .footer-right {
+  .footer-left, 
+  .footer-center, 
+  .footer-right {
     flex-basis: 30%;
   }
 
@@ -12,54 +14,76 @@ footer {
     width: 50px;
     height: 50px;
   }
-  .contact p, .footer-right p {
-    margin: 5px 0;
-    padding-top: 25px;
-  }
 
-  .footer-center {
-    text-align: center;
-    padding-top: 50px;
+  .contact {
+    a {
+      color: white;
+      text-decoration: none;
 
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-
-      textarea {
-        width: 100%;
-        max-width: 400px;
-        height: 100px;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        resize: none;
+      &:hover {
+        color: rgb(118, 118, 198);
       }
+    }
+
+    p, 
+    h1 {
+      // margin: 5px 0;
+      // padding-top: 15px;
+      color: white;
+      text-align: left;
+    }
+
+    h1 {
+      margin: 0;
     }
   }
 
-  .send-email-btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
- 
+  // .footer-center {
+  //   text-align: center;
+  //   padding-top: 50px;
+
+  //   form {
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: center;
+  //     gap: 10px;
+
+  //     textarea {
+  //       width: 100%;
+  //       max-width: 400px;
+  //       height: 100px;
+  //       padding: 10px;
+  //       border-radius: 5px;
+  //       border: 1px solid #ccc;
+  //       resize: none;
+  //     }
+  //   }
+  // }
+
+  // .send-email-btn {
+  //   background-color: #007bff;
+  //   color: white;
+  //   padding: 10px 20px;
+  //   border: none;
+  //   border-radius: 5px;
+  //   cursor: pointer;
+  // }
+
   .footer-right {
     display: flex;
     flex-direction: column;
-    align-items: center;
-
+    justify-items: flex-end;
+    strong{
+      float: right;
+    }
     .social-links {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: end;
 
       a {
         display: flex;
+        margin-right: 4%;
         margin-bottom: 10px; 
 
         img {
@@ -74,5 +98,4 @@ footer {
       }
     }
   }
-
 }

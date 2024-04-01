@@ -29,14 +29,18 @@ const Izdaj = () => {
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        const noveSlike = files.map(file => ({
-            file: file,
-            prikaz: URL.createObjectURL(file),
-            name: file.name
-        }));
-        setSlike(noveSlike);
-        setUploadableImages(files);
-    };
+        if(slike.length + files.length <= 10) {
+            const noveSlike = files.map(file => ({
+                file: file,
+                prikaz: URL.createObjectURL(file),
+                name: file.name
+            }));
+            setSlike(noveSlike);
+            setUploadableImages(files);
+        } else {
+            alert('Greška, možete maksimalno objaviti 10 slika.');
+        }
+    }
 
     const handleRemoveImage = (imageName) => {
         setSlike(slike.filter(slika => slika.name !== imageName));
@@ -104,18 +108,15 @@ const Izdaj = () => {
                 <h1>Izdajte ili prodajte vašu nektretninu</h1>
                 <PoljaForme podaciForme={podaciForme} setPodaciForme={setPodaciForme} />
                 <input
-                    id="file-upload"
+                    id="slike"
                     type="file"
+                    name='slike'
                     multiple
                     accept="image/*"
                     onChange={handleFileChange}
                     style={{ display: 'none' }}
                 />
                 <PrikazSlika slike={slike} setSlike={setSlike} onRemove={handleRemoveImage} />
-                <label htmlFor="file-upload" className="lazni-image-input">
-                    Umetnite slike vašeg stambenog objekta
-                </label>
-                <small>Možete dodati do 10 slika.</small>
                 <Placanje onSuccessfulPayment={onSuccessfulPayment}  />
             </form>
         </>

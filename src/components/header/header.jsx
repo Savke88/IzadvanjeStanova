@@ -2,31 +2,39 @@ import { Link } from "react-router-dom";
 import "./header.scss";
 import logo from "../../slike/logo.png";
 import React, { useState, useEffect } from 'react';
-import { auth } from '../firebase/firebase';
+import { auth, db } from '../firebase/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
 const Header = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setCurrentUser(user);
       if (user) {
-        setCurrentUser(user);
+        const userRef = doc(db, 'users', user.uid); 
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUserData(userSnap.data()); 
+        } else {
+          console.log('Traženi korisnik ne postoji');
+        }
       } else {
-        setCurrentUser(null);
+        setUserData(null); 
       }
     });
-    
-    // Clean up subscription on unmount
     return () => unsubscribe();
   }, []);
 
   const handleSignOut = () => {
     signOut(auth).catch((error) => {
-      // Handle errors here
-      console.error("Error signing out", error);
+      console.error("Greška prilikom odjavljivanja", error);
     });
   };
+
+  const displayName = userData ? `${userData.firstName} ${userData.lastName}` : currentUser?.displayName || currentUser?.email;
 
   return (
     <header>
@@ -48,10 +56,10 @@ const Header = () => {
         <nav>
           <ul>
             {/* <li><Link to="/pretraga">Pretraga</Link></li> */}
-            <li><Link to="/izdaj">Izdajte vašu nekretninu</Link></li>
+            <li><Link to="/izdaj">Izdavanje/Prodavanje</Link></li>
             {currentUser ? (
               <>
-                <li>{currentUser.displayName || currentUser.email}</li>
+                <li>{displayName}</li>
                 <li><button className="odjava" onClick={handleSignOut}>Odjava</button></li>
               </>
             ) : (
